@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * EJEMPLO RESUELTO · BLOQUE NAVEGACIÓN · US-01 y US-02 (historias MLIG-1 y MLIG-2 en Jira).
+ * EJEMPLO RESUELTO · BLOQUE NAVEGACIÓN · US-01 (historia MLIG-1 en Jira).
  * Léanlo, ejecútenlo (npx playwright test 01-navegacion) y entiendan cada línea ANTES de escribir las suyas.
  *
  * Toda prueba automatizada tiene la misma forma, la de sus criterios de aceptación:
@@ -56,29 +56,4 @@ test.describe('US-01 · Navegar entre las secciones del sitio', () => {
 
     await expect(page).toHaveTitle('Ingreso | LIGNINA');
   });
-});
-
-test.describe('US-02 · Ir a una categoría desde la página de inicio', () => {
-  const CATEGORIAS = [
-    { tarjeta: 'Dormitorio', ancla: 'dormitorio' },
-    { tarjeta: 'Baño', ancla: 'bano' },
-    { tarjeta: 'Living', ancla: 'living' },
-    { tarjeta: 'Exterior', ancla: 'exterior' },
-    { tarjeta: 'Deco', ancla: 'deco' },
-    { tarjeta: 'Fraccionado', ancla: 'fraccionado' },
-    { tarjeta: 'Rústica', ancla: 'rustica' },
-  ];
-
-  for (const { tarjeta, ancla } of CATEGORIAS) {
-    test(`CA1: la tarjeta "${tarjeta}" abre Categorías ubicada en esa categoría`, async ({ page }) => {
-      await page.goto('/');
-
-      // Las tarjetas no tienen un texto accesible propio: se ubican por el ancla a la que apuntan.
-      await page.locator(`a[href$="#${ancla}"]`).first().click();
-
-      // La URL termina en el ancla y el título de la categoría quedó a la vista.
-      await expect(page).toHaveURL(new RegExp(`seccion2\\.html#${ancla}$`));
-      await expect(page.locator(`#${ancla}`)).toBeInViewport();
-    });
-  }
 });

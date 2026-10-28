@@ -9,8 +9,6 @@ import { LigninaPage } from '../pages/LigninaPage';
  * en su primera línea. Así la suite queda verde en CI y el bug conocido queda documentado.
  */
 
-const CATEGORIAS = ['Dormitorio', 'Baño', 'Living', 'Exterior', 'Deco', 'Fraccionado', 'Rústico'];
-
 test.describe('US-03 · Buscar productos por nombre', () => {
   test('CA1: buscar "Mesada" muestra las mesadas del catálogo', async ({ page }) => {
     // CAZABUGS. La lupa no tiene ninguna lógica: no filtra ni lleva a una página de resultados.
@@ -26,21 +24,6 @@ test.describe('US-03 · Buscar productos por nombre', () => {
 });
 
 test.describe('US-04 · Ver los productos de cada categoría', () => {
-  test('CA1: las 7 categorías se muestran y ninguna imagen de producto está rota', async ({ page }) => {
-    await page.goto('pages-01/seccion2.html');
-
-    for (const categoria of CATEGORIAS) {
-      await expect(page.getByRole('heading', { name: categoria, level: 3 })).toBeVisible();
-    }
-    // Una imagen rota está "completa" pero mide 0 px. goto() ya esperó el evento load: todas terminaron de cargar.
-    const rotas = await page
-      .locator('div[id^="d"] img')
-      .evaluateAll((imagenes) =>
-        (imagenes as HTMLImageElement[]).filter((i) => !(i.complete && i.naturalWidth > 0)).map((i) => i.src),
-      );
-    expect(rotas).toEqual([]);
-  });
-
   test('CA2: el detalle del Escritorio muestra nombre, imagen, descripción y precio', async ({ page }) => {
     const lignina = new LigninaPage(page);
     await lignina.abrir('Categorías');

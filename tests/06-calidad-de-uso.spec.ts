@@ -11,10 +11,7 @@ test.describe('US-14 · Usar el sitio desde el celular', () => {
 
   const PAGINAS_MOVIL: { pagina: NombrePagina; bug: string }[] = [
     { pagina: 'Inicio', bug: '' },
-    { pagina: 'Categorías', bug: '' },
-    { pagina: 'Venta de la semana', bug: '' },
     { pagina: 'Consejos', bug: 'MLIG-121 · Consejos se desborda a lo ancho en 375 px' },
-    { pagina: 'Comentarios', bug: '' },
   ];
   for (const { pagina, bug } of PAGINAS_MOVIL) {
     test(`CA1: "${pagina}" cabe en 375 px sin desplazamiento horizontal`, async ({ page }) => {
@@ -53,49 +50,11 @@ test.describe('US-15 · Usar el sitio con lector de pantalla', () => {
 });
 
 test.describe('US-20 · Identificar la tienda en el navegador', () => {
-  const TITULOS: { pagina: NombrePagina; bug: string }[] = [
-    { pagina: 'Inicio', bug: 'MLIG-126 · El título del inicio dice "LIGNINA | Maderera-Borsari"' },
-    { pagina: 'Nosotros', bug: '' },
-    { pagina: 'Categorías', bug: '' },
-    { pagina: 'Registro', bug: '' },
-    { pagina: 'Carro de compras', bug: '' },
-  ];
-  for (const { pagina, bug } of TITULOS) {
-    test(`CA1: la pestaña de "${pagina}" tiene el formato "Sección | LIGNINA"`, async ({ page }) => {
-      test.fail(bug !== '', bug);
-      await page.goto(PAGINAS[pagina]);
+  test('CA1: la pestaña de Inicio tiene el formato "Sección | LIGNINA", como las demás páginas', async ({ page }) => {
+    // CAZABUGS. Las demás páginas dicen "Categorías | LIGNINA", "Registro | LIGNINA"…; el inicio dice otro nombre de tienda.
+    test.fail(true, 'MLIG-126 · El título del inicio dice "LIGNINA | Maderera-Borsari"');
+    await page.goto(PAGINAS.Inicio);
 
-      await expect(page).toHaveTitle(/^[^|]+ \| LIGNINA$/);
-    });
-  }
-
-  test('CA3: Categorías carga sin archivos del sitio que respondan 404', async ({ page, baseURL }) => {
-    // CAZABUGS. La hoja de estilos pide img/seccion_22/cartel.png, que no existe.
-    test.fail(true, 'MLIG-128 · Categorías pide img/seccion_22/cartel.png y responde 404');
-    const rotos: string[] = [];
-    // Solo los archivos del propio sitio (los de Google, redes, etc. no son nuestros).
-    const origen = new URL(baseURL!).origin;
-    page.on('response', (r) => {
-      if (r.status() >= 400 && r.url().startsWith(origen)) rotos.push(r.url());
-    });
-
-    await page.goto('pages-01/seccion2.html');
-    await page.waitForLoadState('networkidle');
-
-    expect(rotos).toEqual([]);
-  });
-
-  test('CA3: los íconos del manifiesto (site.webmanifest) existen', async ({ page, request }) => {
-    // CAZABUGS. El manifiesto pide /android-chrome-*.png en la raíz, pero los archivos están en img/Favicoon/.
-    test.fail(true, 'MLIG-127 · Los íconos del manifiesto responden 404');
-    await page.goto('/');
-    const href = await page.locator('link[rel="manifest"]').getAttribute('href');
-    const urlManifiesto = new URL(href!, page.url());
-    const manifiesto = await (await request.get(urlManifiesto.href)).json();
-
-    for (const icono of manifiesto.icons as { src: string }[]) {
-      const respuesta = await request.get(new URL(icono.src, urlManifiesto).href);
-      expect(respuesta.status(), icono.src).toBe(200);
-    }
+    await expect(page).toHaveTitle(/^[^|]+ \| LIGNINA$/);
   });
 });

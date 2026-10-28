@@ -53,11 +53,11 @@ BASE_URL=https://usuario.github.io/madereraLignina/ npx playwright test
 ```
 tests/              Las pruebas. Cada archivo es un bloque de historias del backlog
   00-humo           Prueba de humo: ¿funciona mi entorno?
-  01-navegacion     EJEMPLO RESUELTO (US-01, US-02): léanlo primero
+  01-navegacion     EJEMPLO RESUELTO (US-01): léanlo primero
   02-catalogo       US-03, US-04
   03-compra-carrito US-05, US-07
   04-cuenta         US-08, US-09
-  05-contenido      US-11, US-12, US-13, US-17, US-18
+  05-contenido      US-12, US-17
   06-calidad-de-uso US-14, US-15, US-20
   heredados         Tres pruebas que llegaron en cuarentena, ya diagnosticadas (Parte 4)
 pages/LigninaPage.ts  Page Object del sitio (Parte 5)
