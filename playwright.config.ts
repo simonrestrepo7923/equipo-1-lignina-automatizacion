@@ -25,8 +25,9 @@ export default defineConfig({
 
   use: {
     baseURL: BASE_URL,
-    // Evidencia automática cuando una prueba falla: captura y "trace" (línea de tiempo navegable).
-    screenshot: 'only-on-failure',
+    // Evidencia: una captura de TODAS las pruebas (también las que encuentran bugs, marcadas con test.fail)
+    // y el "trace" (línea de tiempo navegable) cuando una prueba falla sin esperarlo.
+    screenshot: 'on',
     trace: 'retain-on-failure',
   },
 
