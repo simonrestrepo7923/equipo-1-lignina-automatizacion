@@ -1,6 +1,6 @@
 # Entrega · Laboratorio 3.1 · Introducción a la automatización de pruebas
 
-**Equipo:** `equipo-1` · **Integrantes:** Simon Restrepo Aristizabal     · **Repositorio:** https://github.com/simonrestrepo7923/equipo-1-lignina-automatizacion
+**Equipo:** `equipo-1` · **Integrantes:** Simon Restrepo Aristizabal  **Repositorio:** https://github.com/simonrestrepo7923/equipo-1-lignina-automatizacion
 
 **Sitio que probamos:** madereraLignina ([Boni92/madereraLignina](https://github.com/Boni92/madereraLignina), versión `df7ec97`) · **Jira:** proyecto MLIG
 
@@ -59,9 +59,9 @@ Las capturas de cada fallo están en el reporte de Playwright (`npm run report`,
 ## 4. Números
 
 - Casos de prueba de nuestro plan en Jira: **61** · automatizados: **19** (**31 %**)
-- Tiempo que nos tomó escribir las pruebas: **~60 min** · tiempo que tarda la máquina en correrlas todas (30 pruebas): **2,2 min** en nuestro computador y **1 min 31 s** en GitHub Actions (contando la instalación)
-- Tiempo que tomaría hacer esos 19 casos **a mano**: **~57 min** (unos 3 min por caso: abrir la página, hacer los pasos, revisar y anotar)
-- ¿Cuándo vale la pena? 60 min ÷ (57 − 2,2) min que ahorramos cada vez ≈ **1,1: desde la segunda vez que corremos las pruebas ya ganamos tiempo**. Además, GitHub las corre solas cada vez que subimos un cambio.
+- Tiempo que nos tomó escribir las pruebas (estimado): **~3 h (180 min)**, contando instalar Playwright, aprender a usarlo y corregir las pruebas que fallaban por error nuestro · tiempo que tarda la máquina en correrlas todas (30 pruebas): **~2 min** en nuestro computador (estimado) y **1 min 31 s** en GitHub Actions (medido, contando la instalación)
+- Tiempo que tomaría hacer esos 19 casos **a mano** (estimado): **~57 min** (unos 3 min por caso: abrir la página, hacer los pasos, revisar y anotar)
+- ¿Cuándo vale la pena? 180 min ÷ (57 − 2) min que ahorramos cada vez ≈ **3,3: desde la cuarta vez que corremos las pruebas ya ganamos tiempo**. Además, GitHub las corre solas cada vez que subimos un cambio.
 
 ## 5. Reflexión
 
